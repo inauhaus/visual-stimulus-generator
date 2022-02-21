@@ -7,15 +7,15 @@ global comState
 %comState is not initialized in the .ini file, nor is it saved in the state.headerString
 
 if ~isempty(varargin{1})
-    rip = varargin{1}{1}
+    ip = varargin{1}{1}
 else
-    rip = '128.83.22.205';  %2ph master   
-    %rip = '10.0.0.1';
+    ip = '128.83.22.205';  %Controller ip
+    %ip = '10.0.0.1';
 end
 
 % close all open serial port objects on the same port and remove
 % the relevant object from the workspace
-port=instrfindall('RemoteHost',rip);
+port=instrfindall('RemoteHost',ip);
 %port = '198.202.68.38';
 if length(port) > 0; 
     fclose(port); 
@@ -24,7 +24,7 @@ if length(port) > 0;
 end
 
 % make udp object named 'stim'
-comState.serialPortHandle = udp(rip,'RemotePort',8844,'LocalPort',8866);
+comState.serialPortHandle = udp(ip,'RemotePort',8844,'LocalPort',8866);
 
 %For unknown reasons, the output buffer needs to be set to the amount that the input
 %buffer needs to be.  For example, we never exptect to send a packet higher
